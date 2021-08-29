@@ -11,20 +11,11 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": "../vue3-ts-admin",
-    "types": [
-      "webpack-env"
-    ],
+    "types": ["webpack-env"],
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"]
     },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
   "include": [
     "src/**/*.ts",
@@ -33,7 +24,5 @@
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ],
-  "exclude": [
-    "../vue3-ts-admin/node_modules"
-  ]
+  "exclude": ["../vue3-ts-admin/node_modules"]
 }
