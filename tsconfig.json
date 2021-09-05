@@ -1,21 +1,22 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "strict": true,
-    "jsx": "preserve",
-    "importHelpers": true,
-    "moduleResolution": "node",
-    "skipLibCheck": true,
-    "esModuleInterop": true,
+    "target": "esnext",   //目标代码(ts-es5/6/7)
+    "module": "esnext",  //目标代码需要使用的模块化方案
+    "strict": true,    // 是否使用严格检查(any)
+    "jsx": "preserve",  //对jsx进行怎么样的处理
+    "importHelpers": true,  //辅助的导入功能
+    "moduleResolution": "node", //按照node方式去解析模块
+    "skipLibCheck": true,   //跳过一些库的类型检测
+    "esModuleInterop": true,   //默认为true
     "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
-    "baseUrl": "../vue3-ts-admin",
-    "types": ["webpack-env"],
-    "paths": {
+    "sourceMap": true,  //是否需要生成map文件
+    "baseUrl": "../vue3-ts-admin",   //文件路径在解析时，基本的url
+    "types": ["webpack-env"],   //指定具体要解析使用的类型
+    "paths": {   //路径解析
       "@/*": ["src/*"]
+//      "components/*": ["src/components/*"]     //类似与webpack alias配置文件别名一样 这边配置也是可以生效的
     },
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]   //可以指定在项目中使用哪里库的类型
   },
   "include": [
     "src/**/*.ts",

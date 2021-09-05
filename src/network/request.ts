@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import axios, { AxiosInstance } from 'axios'
 import type {
   HYRequestInterceptors,
   HYRequestConfig
@@ -11,11 +11,13 @@ class HYRequest {
   loading?: ILoadingInstance
 
   constructor(config: HYRequestConfig) {
+    //创建axios实例
     this.instance = axios.create(config)
     console.log(15, config)
+    //保存
     this.interceptors = config.interceptors
     this.showLoading = config.showLoading ?? true
-    //拦截器
+    //config取出的拦截器是对应的拦截器
     this.instance.interceptors.request.use(
       this.interceptors?.requestInterceptor,
       this.interceptors?.requestInterceptorCatch
@@ -64,7 +66,7 @@ class HYRequest {
     )
   }
 
-  request<T>(config: HYRequestConfig): Promise<T> {
+  request<T>(config: HYRequestConfig<T>): Promise<T> {
     return new Promise((resolve, reject) => {
       if (config.interceptors?.requestInterceptor) {
         config = config.interceptors.requestInterceptor(config)
@@ -78,7 +80,7 @@ class HYRequest {
         .request<any, T>(config)
         .then((res) => {
           if (config.interceptors?.responseInterceptor) {
-            // res = config.interceptors.responseInterceptor(res)
+            res = config.interceptors.responseInterceptor(res)
           }
           resolve(res)
         })
@@ -88,16 +90,16 @@ class HYRequest {
     })
   }
   //获取method
-  get<T>(config: HYRequestConfig): Promise<T> {
+  get<T>(config: HYRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'GET' })
   }
-  delete<T>(config: HYRequestConfig): Promise<T> {
+  delete<T>(config: HYRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'DELETE' })
   }
-  post<T>(config: HYRequestConfig): Promise<T> {
+  post<T>(config: HYRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'POST' })
   }
-  patch<T>(config: HYRequestConfig): Promise<T> {
+  patch<T>(config: HYRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'PATCH' })
   }
 }
