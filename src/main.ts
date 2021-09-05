@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import rootApp from './App.vue'
-// import ElementPlus from 'element-plus'
+
 import './network/index.ts'
 import { registeredElementPlus } from './plugins'
 
@@ -17,7 +17,6 @@ import hyRequest from './network'
 //全局变量   const app =
 const app = createApp(rootApp)
 app.use(store).use(router).mount('#app')
-
 registeredElementPlus(app)
 
 hyRequest
