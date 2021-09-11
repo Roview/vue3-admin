@@ -1,11 +1,11 @@
 import HYRequest from './request'
-
+import localCatch from '../utils/catch'
 const hyRequest = new HYRequest({
   baseURL: process.env.VUE_APP_BASE_API,
   timeout: 2000,
   interceptors: {
     requestInterceptor: (config) => {
-      const token = ''
+      const token = localCatch.getCatch('token')
       if (token) {
         config.headers.authorization = `Bearer ${token}`
       }

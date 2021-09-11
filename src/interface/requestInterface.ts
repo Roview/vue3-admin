@@ -16,3 +16,21 @@ export default interface dataType {
   returnCode: string
   success: boolean
 }
+export interface loginType {
+  name: string
+  password: number
+}
+export interface ILoginResult {
+  id: number
+  name: string
+  token: string
+}
+// //用户信息
+// export interface iUserinfo {
+//
+// }
+
+export interface IDDataType<T = any> {
+  code: number
+  data: T
+}
