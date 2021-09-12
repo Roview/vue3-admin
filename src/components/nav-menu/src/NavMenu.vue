@@ -1,14 +1,14 @@
 <template>
   <div class="nav-menu">
     <div class="logo">
-      <img src="../../../assets/img/logo.svg" alt="" />
-      <span class="title">后台管理</span>
+      <img class="img" src="../../../assets/img/logo.svg" alt="logo" />
+      <span v-if="isFoldValueCopy" class="title">后台管理</span>
     </div>
-    <!--      :collapse="collapse"-->
     <el-menu
       default-active="2"
       class="el-menu-vertical"
       background-color="#0c2135"
+      :collapse="isFoldValueCopy"
       :unique-opened="true"
       text-color="#b7bdc3"
       active-text-color="#0a60bd"
@@ -44,6 +44,13 @@ import { defineComponent, computed } from 'vue'
 import { useStore } from '../../../store'
 export default defineComponent({
   name: 'NavMenu',
+  //是否折叠
+  props: {
+    isFoldValueCopy: {
+      type: Boolean,
+      default: false
+    }
+  },
   setup() {
     const store = useStore()
     // const userMenus = store.state.login.userMenus //菜单路由
@@ -58,9 +65,9 @@ export default defineComponent({
 
 <style scoped lang="less">
 .nav-menu {
-  //height: 100%;
+  height: 100%;
   background-color: #001529;
-  //background-color: red;
+
   .logo {
     display: flex;
     height: 28px;
@@ -68,17 +75,19 @@ export default defineComponent({
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    img {
+
+    .img {
       height: 100%;
-      //width: 100%;
       margin: 0 10px;
     }
+
     .title {
       font-size: 16px;
       font-weight: 700;
       color: white;
     }
   }
+  //清除那条线
   .el-menu {
     border-right: none;
   }

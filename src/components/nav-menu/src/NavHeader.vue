@@ -13,11 +13,14 @@ import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
   name: 'NavHeader',
-  setup() {
+  emits: ['foldChange'],
+  setup(props, { emit }) {
     const isFold = ref(false)
     const handleFoldClickChange = () => {
       isFold.value = !isFold.value
+      emit('foldChange', isFold.value) //子传父事件
     }
+
     return {
       isFold,
       handleFoldClickChange

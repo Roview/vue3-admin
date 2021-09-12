@@ -1,12 +1,12 @@
 <template>
   <div class="main">
     <el-container class="main-content">
-      <el-aside width="200px">
-        <nav-menu />
+      <el-aside :width="isFoldValueCopy ? '60px' : ' 200px'">
+        <nav-menu :isFoldValueCopy="isFoldValueCopy" />
       </el-aside>
       <el-container class="page">
-        <el-header class="page_header">
-          <nav-header />
+        <el-header class="page-header">
+          <nav-header @foldChange="foldChange" />
         </el-header>
         <el-main class="page-content">Main</el-main>
       </el-container>
@@ -14,8 +14,8 @@
   </div>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
 import NavHeader from '../../components/nav-menu/src/NavHeader'
 import NavMenu from '../../components/nav-menu/src/NavMenu'
 export default defineComponent({
@@ -23,6 +23,16 @@ export default defineComponent({
   components: {
     NavMenu,
     NavHeader
+  },
+  setup() {
+    const isFoldValueCopy = ref(false)
+    const foldChange = (isFoldValue: boolean) => {
+      isFoldValueCopy.value = isFoldValue
+    }
+    return {
+      isFoldValueCopy,
+      foldChange
+    }
   }
 })
 </script>
