@@ -25,7 +25,7 @@ export function LoginUserInfoRequest(id: number) {
 }
 //请求菜单的
 export function requestUserMenuByRoleId(id: number) {
-  return hyRequest.get({
+  return hyRequest.get<IDDataType>({
     url: loginAPI.UserMenus + id + '/menu'
   })
 }

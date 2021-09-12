@@ -3,12 +3,19 @@ import { App } from 'vue'
 import {
   ElButton,
   ElCheckbox,
+  ElContainer,
   ElForm,
   ElInput,
   ElLink,
   ElTabs
 } from 'element-plus'
-import { ElTabPane, ElFormItem } from 'element-plus/es'
+import {
+  ElTabPane,
+  ElFormItem,
+  ElMain,
+  ElHeader,
+  ElAside
+} from 'element-plus/es'
 
 const component = [
   ElButton,
@@ -18,7 +25,11 @@ const component = [
   ElFormItem,
   ElInput,
   ElCheckbox,
-  ElLink
+  ElLink,
+  ElContainer,
+  ElAside,
+  ElHeader,
+  ElMain
 ]
 //component
 export default function (app: App): void {

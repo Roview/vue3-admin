@@ -6,13 +6,15 @@ import {
   requestUserMenuByRoleId
 } from '../../network/login'
 import localCatch from '../../utils/catch'
+import router from '../../router'
 // IRootState: index 里面state的类型    ILoginState 当前的类型
 const ILoginState: Module<ILoginState, IRootState> = {
   namespaced: true, //模块给个命名空间
   state() {
     return {
       token: '',
-      userInfo: ''
+      userInfo: '',
+      userMenus: []
     }
   },
   mutations: {
@@ -21,6 +23,9 @@ const ILoginState: Module<ILoginState, IRootState> = {
     },
     changeUserInfo(state, userInfo: any) {
       state.userInfo = userInfo
+    },
+    changeUserMenus(state, userMenus: any) {
+      state.userMenus = userMenus
     }
   },
   getters: {},
@@ -43,7 +48,26 @@ const ILoginState: Module<ILoginState, IRootState> = {
       const userInfoMenu = await requestUserMenuByRoleId(
         userInfoResult.data.role.id
       )
+      commit('changeUserMenus', userInfoMenu.data)
+      localCatch.setCatch('userInfo', userInfoMenu.data)
       console.log(userInfoMenu)
+      //跳转首页路由
+      router.push('/main')
+    },
+    //刷新获取token
+    loadLocalLogin({ commit }) {
+      const token = localCatch.getCatch('token')
+      if (token) {
+        commit('changeToken', token)
+      }
+      const userInfo = localCatch.getCatch('userInfo')
+      if (userInfo) {
+        commit('changeUserInfo', userInfo)
+      }
+      const userMenus = localCatch.getCatch('userMenus')
+      if (userMenus) {
+        commit('changeUserMenus', userMenus)
+      }
     }
   }
 }
