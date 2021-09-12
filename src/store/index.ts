@@ -1,7 +1,7 @@
-import { createStore } from 'vuex'
+import { createStore, Store, useStore as useVuexStore } from 'vuex'
 import { IRootState } from './types'
 import login from './login/login'
-
+import { IStoreType } from '../interface/requestInterface'
 const store = createStore<IRootState>({
   state() {
     return {
@@ -11,7 +11,7 @@ const store = createStore<IRootState>({
   },
   mutations: {},
   actions: {},
-  //导入模块
+  //导入模块IStoreType
   modules: {
     login
   }
@@ -20,4 +20,8 @@ export default store
 
 export function setupStore() {
   store.dispatch('login/loadLocalLogin')
+}
+//调用这个方法 指定这个方法返回值，返回useStore的别名
+export function useStore(): Store<IStoreType> {
+  return useVuexStore()
 }

@@ -1,9 +1,13 @@
 <template>
   <div class="main">
     <el-container class="main-content">
-      <el-aside width="200px">Asidesssssss</el-aside>
+      <el-aside width="200px">
+        <nav-menu />
+      </el-aside>
       <el-container class="page">
-        <el-header class="page_header">Header</el-header>
+        <el-header class="page_header">
+          <nav-header />
+        </el-header>
         <el-main class="page-content">Main</el-main>
       </el-container>
     </el-container>
@@ -12,9 +16,14 @@
 
 <script>
 import { defineComponent } from 'vue'
-
+import NavHeader from '../../components/nav-menu/src/NavHeader'
+import NavMenu from '../../components/nav-menu/src/NavMenu'
 export default defineComponent({
-  name: 'index'
+  name: 'index',
+  components: {
+    NavMenu,
+    NavHeader
+  }
 })
 </script>
 

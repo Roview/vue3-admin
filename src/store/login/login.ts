@@ -49,7 +49,7 @@ const ILoginState: Module<ILoginState, IRootState> = {
         userInfoResult.data.role.id
       )
       commit('changeUserMenus', userInfoMenu.data)
-      localCatch.setCatch('userInfo', userInfoMenu.data)
+      localCatch.setCatch('userMenus', userInfoMenu.data)
       console.log(userInfoMenu)
       //跳转首页路由
       router.push('/main')

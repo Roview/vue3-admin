@@ -1,5 +1,6 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { ILoadingInstance } from 'element-plus'
+import { ILoginState } from '../store/types'
 
 export interface HYRequestInterceptors<T = AxiosResponse> {
   requestInterceptor: (config: AxiosRequestConfig) => AxiosRequestConfig
@@ -25,12 +26,12 @@ export interface ILoginResult {
   name: string
   token: string
 }
-// //用户信息
-// export interface iUserinfo {
-//
-// }
-
 export interface IDDataType<T = any> {
   code: number
   data: T
 }
+export interface IRootWithModule {
+  login: ILoginState
+}
+//交叉类型 两种类型都有useStore方法就可以使用2种方法
+export type IStoreType = IRootWithModule & ILoginState

@@ -7,14 +7,18 @@ import {
   ElForm,
   ElInput,
   ElLink,
+  ElMenu,
   ElTabs
 } from 'element-plus'
 import {
   ElTabPane,
   ElFormItem,
   ElMain,
+  ElMenuItem,
   ElHeader,
-  ElAside
+  ElMenuItemGroup,
+  ElAside,
+  ElSubMenu
 } from 'element-plus/es'
 
 const component = [
@@ -29,7 +33,11 @@ const component = [
   ElContainer,
   ElAside,
   ElHeader,
-  ElMain
+  ElMain,
+  ElMenu,
+  ElMenuItem,
+  ElMenuItemGroup,
+  ElSubMenu
 ]
 //component
 export default function (app: App): void {

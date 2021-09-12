@@ -2,10 +2,11 @@ import { createApp } from 'vue'
 import rootApp from './App.vue'
 
 import './network/index.ts'
+
 import { registeredElementPlus } from './plugins'
 
 // import dataType from './interface/requestInterface'
-
+// import 'element-plus/lib/theme-chalk/base.css'
 import 'normalize.css'
 import './assets/css/index.css'
 
@@ -17,6 +18,7 @@ import { setupStore } from './store'
 //全局变量   const app =
 const app = createApp(rootApp)
 setupStore()
+// app.use(ElementPlus)
 app.use(store).use(router).mount('#app')
 registeredElementPlus(app)
 
