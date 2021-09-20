@@ -1,6 +1,7 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { ILoadingInstance } from 'element-plus'
-import { ILoginState } from '../store/types'
+import { ILoginState, ISystemState } from "../store/types";
+import systemModule from "../store/system/system";
 
 export interface HYRequestInterceptors<T = AxiosResponse> {
   requestInterceptor: (config: AxiosRequestConfig) => AxiosRequestConfig
@@ -32,6 +33,7 @@ export interface IDDataType<T = any> {
 }
 export interface IRootWithModule {
   login: ILoginState
+  systemModule: ISystemState
 }
 //交叉类型 两种类型都有useStore方法就可以使用2种方法
 export type IStoreType = IRootWithModule & ILoginState

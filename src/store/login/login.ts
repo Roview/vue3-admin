@@ -8,7 +8,7 @@ import {
 import { mapMenusToRoutes } from '../../utils/map-menus'
 import localCatch from '../../utils/catch'
 import router from '../../router'
-// IRootState: index 里面state的类型    ILoginState 当前的类型
+// IRootState: index 里面state的类型    ILoginState 当前的类型   IRootState其实是总模块里面的类型 name和age的类型
 const ILoginState: Module<ILoginState, IRootState> = {
   namespaced: true, //模块给个命名空间
   state() {

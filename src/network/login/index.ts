@@ -29,3 +29,9 @@ export function requestUserMenuByRoleId(id: number) {
     url: loginAPI.UserMenus + id + '/menu'
   })
 }
+export function getPageListData(url: string, queryInfo: any) {
+  return hyRequest.post<IDDataType>({
+    url: url,
+    data: queryInfo
+  })
+}
