@@ -8,7 +8,11 @@
         <el-header class="page-header">
           <nav-header @foldChange="foldChange" />
         </el-header>
-        <el-main class="page-content">Main</el-main>
+        <el-main class="page-content">
+          <div class="page-info">
+            <router-view></router-view>
+          </div>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -16,8 +20,8 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import NavHeader from '../../components/nav-menu/src/NavHeader'
-import NavMenu from '../../components/nav-menu/src/NavMenu'
+import NavHeader from '../../components/nav-menu/src/NavHeader.vue'
+import NavMenu from '../../components/nav-menu/src/NavMenu.vue'
 export default defineComponent({
   name: 'index',
   components: {
@@ -93,4 +97,5 @@ export default defineComponent({
   text-align: center;
   background-color: #f0f2f5;
 }
+
 </style>

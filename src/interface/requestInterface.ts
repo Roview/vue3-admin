@@ -35,3 +35,24 @@ export interface IRootWithModule {
 }
 //交叉类型 两种类型都有useStore方法就可以使用2种方法
 export type IStoreType = IRootWithModule & ILoginState
+
+type IFormType = 'input' | 'password' | 'select' | 'datepicker'
+export interface IFormItem {
+  field: string
+  type: IFormType //决定当前是什么类型
+  label: string
+  rules?: any[]
+  placeholder: any
+  options?: any[]
+  otherOptions?: any //特殊的属性 可能是字符串或者数组
+}
+export interface IForm {
+  formItem: IFormItem[]
+  labelWidth?: any
+  itemStyle?: any
+  colLayout?: any
+}
+export interface IBreadcrumb {
+  name: string
+  path?: string
+}

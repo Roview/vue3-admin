@@ -1,17 +1,14 @@
 <template>
-  <div class="role">
-    <h2>roleqweqewe</h2>
+  <div>
+    <h2>Not Found</h2>
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'role',
-  setup() {
-    return {}
-  }
+  name: 'not-found'
 })
 </script>
 

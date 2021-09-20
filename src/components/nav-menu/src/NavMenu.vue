@@ -5,7 +5,7 @@
       <span v-if="isFoldValueCopy" class="title">后台管理</span>
     </div>
     <el-menu
-      default-active="2"
+      :default-active="defaultValue"
       class="el-menu-vertical"
       background-color="#0c2135"
       :collapse="isFoldValueCopy"
@@ -21,7 +21,10 @@
               <span>{{ item.name }}</span>
             </template>
             <template v-for="submitter in item.children" :key="submitter.id">
-              <el-menu-item :index="submitter.id + ''">
+              <el-menu-item
+                :index="submitter.id + ''"
+                @click="handleMenuItemClick(submitter)"
+              >
                 <i v-if="submitter.icon" :class="submitter.icon" />
                 <span>{{ submitter.name }}</span>
               </el-menu-item>
@@ -40,8 +43,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, ref } from 'vue'
 import { useStore } from '../../../store'
+import { useRouter, useRoute } from 'vue-router'
+import { pathMapToMenu } from '../../../utils/map-menus'
 export default defineComponent({
   name: 'NavMenu',
   //是否折叠
@@ -51,13 +56,29 @@ export default defineComponent({
       default: false
     }
   },
-  setup() {
+  setup: function () {
     const store = useStore()
+    const router = useRouter()
+    //刷新应该要去当前路由匹配
+    const route = useRoute() //获取当前的路由
     // const userMenus = store.state.login.userMenus //菜单路由
+
     const userMenus = computed(() => store.state.login.userMenus)
     console.log(userMenus.value)
+    const currentPath = route.path
+    const menu = pathMapToMenu(userMenus.value, currentPath)
+    console.log(70, '当前路由', currentPath)
+    const defaultValue = ref(menu.id + '') //根据id来决定当前路由
+
+    const handleMenuItemClick = (item: any) => {
+      router.push({
+        path: item.url ?? '/not-found'
+      })
+    }
     return {
-      userMenus
+      userMenus,
+      handleMenuItemClick,
+      defaultValue
     }
   }
 })

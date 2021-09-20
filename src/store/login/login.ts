@@ -5,6 +5,7 @@ import {
   LoginUserInfoRequest,
   requestUserMenuByRoleId
 } from '../../network/login'
+import { mapMenusToRoutes } from '../../utils/map-menus'
 import localCatch from '../../utils/catch'
 import router from '../../router'
 // IRootState: index 里面state的类型    ILoginState 当前的类型
@@ -26,6 +27,13 @@ const ILoginState: Module<ILoginState, IRootState> = {
     },
     changeUserMenus(state, userMenus: any) {
       state.userMenus = userMenus
+      //将当前的路由映射到children
+      const routes = mapMenusToRoutes(userMenus) //用户路由与路由表的内容所匹配将匹配的路由拿出来
+      //将router.main.children  遍历routes 将所有的路由添加进router中
+      routes.forEach((route) => {
+        console.log(34, route)
+        router.addRoute('main', route)
+      })
     }
   },
   getters: {},
