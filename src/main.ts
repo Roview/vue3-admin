@@ -21,6 +21,8 @@ setupStore()
 // app.use(ElementPlus)
 app.use(store).use(router).mount('#app')
 registeredElementPlus(app)
+app.use(registeredElementPlus)
+//格式化时间   在模版中都可以用这个方法
 
 // hyRequest
 //   .get<dataType>({

@@ -1,7 +1,7 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { ILoadingInstance } from 'element-plus'
-import { ILoginState, ISystemState } from "../store/types";
-import systemModule from "../store/system/system";
+import { ILoginState, ISystemState } from '../store/types'
+import systemModule from '../store/system/system'
 
 export interface HYRequestInterceptors<T = AxiosResponse> {
   requestInterceptor: (config: AxiosRequestConfig) => AxiosRequestConfig
@@ -44,12 +44,12 @@ export interface IFormItem {
   type: IFormType //决定当前是什么类型
   label: string
   rules?: any[]
-  placeholder: any
+  placeholder?: any
   options?: any[]
   otherOptions?: any //特殊的属性 可能是字符串或者数组
 }
 export interface IForm {
-  formItem: IFormItem[]
+  formItem?: IFormItem[]
   labelWidth?: any
   itemStyle?: any
   colLayout?: any

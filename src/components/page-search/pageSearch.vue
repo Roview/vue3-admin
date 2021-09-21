@@ -8,7 +8,10 @@
         </template>
         <template #footer>
           <div style="text-align: right; padding: 0 29px 10px">
-            <el-button type="primary" icon="el-icon-refresh-right"
+            <el-button
+              type="primary"
+              icon="el-icon-refresh-right"
+              @click="reset"
               >重置</el-button
             >
             <el-button type="primary" icon="el-icon-search-">搜索</el-button>
@@ -34,17 +37,23 @@ export default defineComponent({
       required: true
     }
   },
-  setup() {
-    const formData = ref({
-      id: '',
-      name: '',
-      passWord: '',
-      sport: '',
-      createTime: ''
-    })
-
+  setup(props) {
+    //双向绑定的属性应该是由配置文件的field来决定的
+    const formItems = props.formConfig.formItem ?? []
+    const formOriginData: any = {}
+    for (const item of formItems) {
+      formOriginData[item.field] = '' //把field作为对象key的值
+    }
+    const formData = ref(formOriginData)
+    console.log(48, formData.value)
+    //重置
+    const reset = () => {
+      console.log(48, formData.value)
+      formData.value = formOriginData //设置为空
+    }
     return {
-      formData
+      formData,
+      reset
     }
   }
 })

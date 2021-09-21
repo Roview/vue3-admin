@@ -32,7 +32,8 @@ import {
   ElDatePicker,
   ElBreadcrumbItem,
   ElTable,
-  ElTableColumn
+  ElTableColumn,
+  ElPagination
 } from 'element-plus/es'
 
 const component = [
@@ -65,7 +66,8 @@ const component = [
   ElBreadcrumb,
   ElBreadcrumbItem,
   ElTable,
-  ElTableColumn
+  ElTableColumn,
+  ElPagination
 ]
 //component
 export default function (app: App): void {

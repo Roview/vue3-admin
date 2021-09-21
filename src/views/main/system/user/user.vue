@@ -1,26 +1,23 @@
 <template>
   <div class="user">
     <page-search :form-config="formConfig" />
-    <div class="content">
-      <hy-table :listData="userList" :propList="propList" />
-    </div>
+    <page-content pageName="users" :contentTableConfig="contentTableConfig" />
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
-import { useStore } from 'vuex'
+import { defineComponent } from 'vue'
 import PageSearch from '../../../../components/page-search/pageSearch.vue'
 import { IForm } from '../../../../interface/requestInterface'
-import HyTable from '../../../../components/table/table.vue'
+import pageContent from '../../../../components/page-Content/pageContent.vue'
+import { contentTableConfig } from './config/content.config'
 export default defineComponent({
   name: 'user',
   components: {
     PageSearch,
-    HyTable
+    pageContent
   },
   setup() {
-    let store = useStore()
     const formConfig: IForm = {
       labelWidth: '100px',
       itemStyle: {
@@ -66,28 +63,9 @@ export default defineComponent({
         }
       ]
     }
-    store.dispatch('systemModule/getPageListAction', {
-      pageUrl: '/users/list',
-      queryInfo: {
-        offset: 0,
-        size: 10
-      }
-    })
-    const userList = computed(() => store.state.systemModule.userList)
-    const userCount = computed(() => store.state.systemModule.userCount)
-    const propList = [
-      { prop: 'name', label: '用户名', minWidth: '100' },
-      { prop: 'realname', label: '真实姓名', minWidth: '100' },
-      { prop: 'cellphone', label: '手机号码', minWidth: '100' },
-      { prop: 'enable', label: '状态', minWidth: '100' },
-      { prop: 'creatAt', label: '创建时间', minWidth: '250' },
-      { prop: 'updateAt', label: '更新时间', minWidth: '250' }
-    ]
     return {
       formConfig,
-      userList,
-      userCount,
-      propList
+      contentTableConfig
     }
   }
 })
