@@ -37,12 +37,14 @@ export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
   _recurseGetRoutes(userMenus)
   return routes
 }
+
 //匹配当前选择的路由
 export function pathMapToMenuCopy(useMenus: any[], currentPath: string): any {
   const breadcrumbs: IBreadcrumb[] = []
   pathMapToMenu(useMenus, currentPath, breadcrumbs)
   return breadcrumbs
 }
+
 //从路由表中查找符合我当前的路由路径  第3个参数是天际的面包屑数组
 export function pathMapToMenu(
   useMenus: any[],
@@ -62,4 +64,22 @@ export function pathMapToMenu(
     }
   }
 }
+
+export function mapMenusToPermissions(userMenus: any[]) {
+  const perMissions: string[] = [] //将我们当前用户权限存进数组里
+
+  const _recurseGetPermission = (menus: any[]) => {
+    for (const menu of menus) {
+      if (menu.type === 1 || menu.type === 2) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        _recurseGetPermission(menu.children ?? []) // 如果等于1或者等于2将里面的children重新递归直到type为3
+      } else if (menu.type === 3) {
+        perMissions.push(menu.permission)
+      }
+    }
+  }
+  _recurseGetPermission(userMenus)
+  return perMissions
+}
+
 export { firstMenu }

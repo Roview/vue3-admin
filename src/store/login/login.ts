@@ -5,7 +5,7 @@ import {
   LoginUserInfoRequest,
   requestUserMenuByRoleId
 } from '../../network/login'
-import { mapMenusToRoutes } from '../../utils/map-menus'
+import { mapMenusToPermissions, mapMenusToRoutes } from '../../utils/map-menus'
 import localCatch from '../../utils/catch'
 import router from '../../router'
 // IRootState: index 里面state的类型    ILoginState 当前的类型   IRootState其实是总模块里面的类型 name和age的类型
@@ -15,7 +15,8 @@ const ILoginState: Module<ILoginState, IRootState> = {
     return {
       token: '',
       userInfo: '',
-      userMenus: []
+      userMenus: [], //当前用户得到菜单数据
+      perMissions: [] //用户权限
     }
   },
   mutations: {
@@ -34,6 +35,10 @@ const ILoginState: Module<ILoginState, IRootState> = {
         console.log(34, route)
         router.addRoute('main', route)
       })
+      //当前用户登陆的时候直接获取用户按钮的权限
+      const perMissions = mapMenusToPermissions(userMenus)
+      state.perMissions = perMissions //当前用户权限保存在state中
+      console.log(39, perMissions)
     }
   },
   getters: {},

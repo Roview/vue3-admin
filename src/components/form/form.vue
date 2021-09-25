@@ -94,13 +94,13 @@ export default defineComponent({
     const formData = ref({ ...props.modelValue }) //传过来的东西解构所有的赋值给新的变量里
     //当内部对象属性变化的时候，将内部单独对象的值传给组件外部真正的对象
     //监听传过来的值 如果发生变化就重写复制
-    watch(
-      () => props.modelValue,
-      (newValue) => {
-        console.log(98, newValue)
-        formData.value = { ...newValue } //formData所有值重新赋值给formData.value
-      }
-    )
+    // watch(
+    //   () => props.modelValue,
+    //   (newValue) => {
+    //     console.log(98, newValue)
+    //     formData.value = { ...newValue } //formData所有值重新赋值给formData.value
+    //   }
+    // )
     watch(
       formData,
       (newValue) => {

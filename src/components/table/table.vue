@@ -13,6 +13,7 @@
       border
       style="width: 100%"
       @selection-change="handleSelectionChange"
+      v-bind="childrenProps"
     >
       <el-table-column
         v-if="showSelectColumn"
@@ -28,7 +29,7 @@
         width="60"
       />
       <template v-for="item in propList" :key="item.prop">
-        <el-table-column v-bind="item" align="center">
+        <el-table-column v-bind="item" align="center" show-overflow-tooltip>
           <template #default="scope">
             <!--动态给插槽设置名字设置每一行列属性的名字用来替换达到修改这一列数据的目的-->
             <!--将scope.row的作用域插槽传出去-->
@@ -40,16 +41,16 @@
         </el-table-column>
       </template>
     </el-table>
-    <div class="footer">
+    <div class="footer" v-if="showFooter">
       <slot name="footer">
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page="currentPage4"
-          :page-sizes="[100, 200, 300, 400]"
-          :page-size="100"
+          :current-page="page.currentPage"
+          :page-size="page.pageSize"
+          :page-sizes="[10, 20, 30, 40]"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="400"
+          :total="listCount"
         >
         </el-pagination>
       </slot>
@@ -67,6 +68,14 @@ export default defineComponent({
       type: Array,
       required: true
     },
+    listCount: {
+      type: Number,
+      default: 0
+    },
+    page: {
+      type: Object,
+      default: () => ({ currentPage: 0, pageSize: 10 })
+    },
     propList: {
       type: Array,
       required: true
@@ -82,16 +91,39 @@ export default defineComponent({
     title: {
       type: String,
       default: ''
+    },
+    childrenProps: {
+      type: Object,
+      default: () => ({})
+    },
+    showFooter: {
+      type: Boolean,
+      default: true
     }
   },
-  emits: ['selectionChange'],
-  setup(props, { emit }) {
+  emits: ['selectionChange', 'update:pageList'],
+  setup: function (props, { emit }) {
     const handleSelectionChange = (value: any) => {
       console.log('全选按钮', value)
-      emit('selectionChange', value)
+      // emit('selectionChange', value)
+    }
+    //页数点击
+    const handleCurrentChange = (currentPage: number) => {
+      console.log(102, currentPage, { ...props.page })
+      emit('update:pageList', { ...props.page, currentPage })
+      console.log(105, { ...props.page, currentPage })
+    }
+    //条数点击
+    const handleSizeChange = (pageSize: number) => {
+      console.log(105, pageSize)
+      //将对象展开，把后面的值重新赋值
+      emit('update:pageList', { ...props.page, pageSize })
+      console.log(105, { ...props.page, pageSize })
     }
     return {
-      handleSelectionChange
+      handleSelectionChange,
+      handleCurrentChange,
+      handleSizeChange
     }
   }
 })

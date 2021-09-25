@@ -6,7 +6,7 @@
     </div>
     <el-menu
       :default-active="defaultValue"
-      class="el-menu-vertical"
+      class="el-menu-vetical"
       background-color="#0c2135"
       :collapse="isFoldValueCopy"
       :unique-opened="true"
@@ -68,8 +68,8 @@ export default defineComponent({
     const currentPath = route.path
     const menu = pathMapToMenu(userMenus.value, currentPath)
     console.log(70, '当前路由', currentPath)
-    const defaultValue = ref(menu.id + '') //根据id来决定当前路由
-
+    const defaultValue = ref(menu.id + '') //根据id来决定当前路由 字符串
+    console.log(72, defaultValue.value)
     const handleMenuItemClick = (item: any) => {
       router.push({
         path: item.url ?? '/not-found'

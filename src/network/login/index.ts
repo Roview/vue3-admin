@@ -4,6 +4,7 @@ import {
   ILoginResult,
   loginType
 } from '../../interface/requestinterface'
+
 enum loginAPI {
   AccountLogin = '/login', //登陆
   LoginUserInfo = '/users/', //请求用户信息
@@ -33,5 +34,11 @@ export function getPageListData(url: string, queryInfo: any) {
   return hyRequest.post<IDDataType>({
     url: url,
     data: queryInfo
+  })
+}
+//根据每个用户删除id
+export function deletePageDataById(url: string) {
+  return hyRequest.delete<IDDataType>({
+    url: url
   })
 }

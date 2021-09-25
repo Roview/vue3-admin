@@ -17,7 +17,7 @@ import store from './store'
 import { setupStore } from './store'
 //全局变量   const app =
 const app = createApp(rootApp)
-setupStore()
+setupStore() //刷新获取当前用户的数据，因为全部存进本地了
 // app.use(ElementPlus)
 app.use(store).use(router).mount('#app')
 registeredElementPlus(app)

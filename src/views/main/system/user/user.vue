@@ -1,7 +1,19 @@
 <template>
   <div class="user">
-    <page-search :form-config="formConfig" />
-    <page-content pageName="users" :contentTableConfig="contentTableConfig" />
+    <page-search
+      :form-config="formConfig"
+      @queryBtnClick="queryBtnClick"
+      @resetBtnClick="resetBtnClick"
+    />
+    <page-content
+      ref="pageContentRef"
+      pageName="users"
+      :contentTableConfig="contentTableConfig"
+    >
+      <template #enable="scope">
+        <div>{{ scope.row.enable ? '启用' : '警用' }}</div>
+      </template>
+    </page-content>
   </div>
 </template>
 
@@ -11,6 +23,8 @@ import PageSearch from '../../../../components/page-search/pageSearch.vue'
 import { IForm } from '../../../../interface/requestInterface'
 import pageContent from '../../../../components/page-Content/pageContent.vue'
 import { contentTableConfig } from './config/content.config'
+import { usePageSearch } from '../../../../hooks/usePageSearch'
+
 export default defineComponent({
   name: 'user',
   components: {
@@ -32,25 +46,25 @@ export default defineComponent({
           placeholder: '请输入用户名'
         },
         {
-          field: 'passWord',
+          field: 'realName',
           type: 'password',
-          label: '密码',
+          label: '真实姓名',
           rules: [],
-          placeholder: '请输入密码'
+          placeholder: '请输入真实姓名'
         },
         {
-          field: 'sport',
+          field: 'enable',
           type: 'select',
-          label: '喜欢的运动',
+          label: '用户状态',
           rules: [],
-          placeholder: '请输入喜欢的运动',
+          placeholder: '请输入用户状态',
           options: [
-            { title: '篮球', value: 'basketball' },
-            { title: '足球', value: 'football' }
+            { title: '启用', value: '1' },
+            { title: '禁用', value: '0' }
           ]
         },
         {
-          field: 'createTime',
+          field: 'createAt',
           type: 'datepicker',
           label: '创建时间',
           rules: [],
@@ -63,9 +77,15 @@ export default defineComponent({
         }
       ]
     }
+    //hooks直接导入
+    const [queryBtnClick, resetBtnClick, pageContentRef] = usePageSearch()
     return {
       formConfig,
-      contentTableConfig
+      contentTableConfig,
+      queryBtnClick,
+      resetBtnClick,
+      pageContent,
+      pageContentRef
     }
   }
 })
