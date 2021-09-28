@@ -1,49 +1,66 @@
 <template>
   <div class="dashboard">
-    <div ref="divRef" :style="{ width: '600px', height: '600px' }"></div>
+    <el-row :gutter="10">
+      <el-col :span="7">
+        <hy-card title="分类商品数量(饼图)" />
+      </el-col>
+      <el-col :span="10"> <hy-card title="不同城市商品销售" /></el-col>
+      <el-col :span="7"> <hy-card title="分类商品数量(饼图)" /></el-col>
+    </el-row>
+
+    <el-row :gutter="10" class="content-row">
+      <el-col :span="12">
+        <hy-card title="分类商品的销量">
+          <base-echarts :options="options"></base-echarts>
+        </hy-card>
+      </el-col>
+      <el-col :span="12"> <hy-card title="分类商品的收藏" /></el-col>
+    </el-row>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue'
-import * as echarts from 'echarts'
+import { defineComponent } from 'vue'
+import { useStore } from 'vuex'
+import BaseEcharts from '../../../../components/echart/baseEcharts.vue'
+import HyCard from '../../../../components/card/index'
 export default defineComponent({
   name: 'dashboard',
+  components: {
+    HyCard,
+    BaseEcharts
+  },
   setup() {
-    const divRef = ref<HTMLElement>() //给divRef指定类型
-    onMounted(() => {
-      //在onMounted生命周期 此时页面已经完全加载出来 可以给这个ref断言
-      const echartsInstance = echarts.init(divRef.value!, 'light', {
-        renderer: 'svg'
-      })
-      // 指定图表的配置项和数据
-      var option = {
-        title: {
-          text: 'ECharts 入门示例'
-        },
-        tooltip: {},
-        legend: {
-          data: ['销量']
-        },
-        xAxis: {
-          data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
-        },
-        yAxis: {},
-        series: [
-          {
-            name: '销量',
-            type: 'bar',
-            data: [5, 20, 36, 10, 10, 20]
+    const store = useStore()
+    const option = {
+      xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          data: [120, 200, 150, 80, 70, 110, 130],
+          type: 'bar',
+          showBackground: true,
+          backgroundStyle: {
+            color: 'rgba(180, 180, 180, 0.2)'
           }
-        ]
-      }
-      echartsInstance.setOption(option)
-    })
+        }
+      ]
+    }
+    store.dispatch('dashboardModule/getDashboardDataAction')
     return {
-      divRef
+      option
     }
   }
 })
 </script>
 
-<style scoped></style>
+<style scoped lang="less">
+.content-row {
+  margin-top: 20px;
+}
+</style>

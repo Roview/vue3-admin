@@ -4,6 +4,7 @@ import login from './login/login'
 import systemModule from './system/system'
 import { IStoreType } from '../interface/requestInterface'
 import { getPageListData } from '../network/login'
+import dashboardModule from './analysis/dashboard'
 const store = createStore<IRootState>({
   state() {
     return {
@@ -52,7 +53,8 @@ const store = createStore<IRootState>({
   //导入模块IStoreType
   modules: {
     login,
-    systemModule
+    systemModule,
+    dashboardModule
   }
 })
 export default store

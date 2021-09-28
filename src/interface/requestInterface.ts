@@ -60,3 +60,9 @@ export interface IBreadcrumb {
   name: string
   path?: string
 }
+export interface IDashboardState {
+  categoryGoodsCounts: any[] //商品类别
+  categoryGoodsSale: any[] //商品销量
+  categoryGoodsFavor: any[] //商品收藏
+  addressGoodsSale: any[]
+}

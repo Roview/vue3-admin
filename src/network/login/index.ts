@@ -10,6 +10,12 @@ enum loginAPI {
   LoginUserInfo = '/users/', //请求用户信息
   UserMenus = '/role/' //获取菜单
 }
+enum DashboardAPI {
+  categoryGoodsCount = '/goods/category/count',
+  categoryGoodsSale = '/goods/category/sale',
+  categoryGoodsFavor = '/goods/category/favor',
+  addressGoodsSale = '/goods/address/sale'
+}
 //account:账号和密码
 export function accountLoginRequest(account: loginType) {
   return hyRequest.post<IDDataType<ILoginResult>>({
@@ -54,5 +60,26 @@ export function updatePageData(url: string, editData: any) {
   return hyRequest.patch<IDDataType>({
     url: url,
     data: editData
+  })
+}
+//请求图标的axios
+export function getCategoryGoodsCount() {
+  return hyRequest.get({
+    url: DashboardAPI.categoryGoodsCount
+  })
+}
+export function getCategoryGoodsSale() {
+  return hyRequest.get({
+    url: DashboardAPI.categoryGoodsSale
+  })
+}
+export function getCategoryGoodsFavor() {
+  return hyRequest.get({
+    url: DashboardAPI.categoryGoodsFavor
+  })
+}
+export function getAddressGoodsSale() {
+  return hyRequest.get({
+    url: DashboardAPI.addressGoodsSale
   })
 }
