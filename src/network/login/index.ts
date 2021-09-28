@@ -42,3 +42,17 @@ export function deletePageDataById(url: string) {
     url: url
   })
 }
+//创建用户
+export function createPageData(url: string, newData: any) {
+  return hyRequest.post<IDDataType>({
+    url: url,
+    data: newData
+  })
+}
+//编辑用户
+export function updatePageData(url: string, editData: any) {
+  return hyRequest.patch<IDDataType>({
+    url: url,
+    data: editData
+  })
+}

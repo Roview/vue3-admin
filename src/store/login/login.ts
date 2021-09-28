@@ -44,7 +44,7 @@ const ILoginState: Module<ILoginState, IRootState> = {
   getters: {},
   actions: {
     //  账号登陆
-    async accountLoginAction({ commit }, payload: any) {
+    async accountLoginAction({ commit, dispatch }, payload: any) {
       console.log('触发执行方法', payload)
       const loginResult = await accountLoginRequest(payload)
       console.log(21, loginResult)
@@ -52,6 +52,10 @@ const ILoginState: Module<ILoginState, IRootState> = {
       console.log(id, token)
       commit('changeToken', token)
       localCatch.setCatch('token', token)
+
+      //请求我们选择框的数据      在模块上如果要调用根模块的action就是这样调用
+      dispatch('getInitialDataAction', null, { root: true })
+
       //获取用户信息
       const userInfoResult = await LoginUserInfoRequest(id)
       console.log(userInfoResult.data)

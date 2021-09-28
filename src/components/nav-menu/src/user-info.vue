@@ -11,7 +11,9 @@
       </span>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item icon="el-icon-close">退出登陆</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-close" @click="handleExitClick"
+            >退出登陆</el-dropdown-item
+          >
           <el-dropdown-item icon="el-icon-user">用户信息</el-dropdown-item>
           <el-dropdown-item icon="el-icon-s-tools">系统管理</el-dropdown-item>
         </el-dropdown-menu>
@@ -23,14 +25,23 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { useStore } from 'vuex'
-
+import localCache from '../../../utils/catch'
+import { useRouter } from 'vue-router'
 export default defineComponent({
   name: 'user-info',
   setup() {
     const store = useStore()
+    const router = useRouter()
     const userName = computed(() => store.state.login.userInfo.name)
+
+    const handleExitClick = () => {
+      console.log('退出登陆')
+      localCache.deleteCatch('token')
+      router.push('/main')
+    }
     return {
-      userName
+      userName,
+      handleExitClick
     }
   }
 })

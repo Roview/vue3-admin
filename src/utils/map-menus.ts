@@ -82,4 +82,22 @@ export function mapMenusToPermissions(userMenus: any[]) {
   return perMissions
 }
 
+export function getMenuLeaf(menuList: any[]) {
+  const leftKeys: number[] = []
+  const _recurseGetLeaf = (menuList: any[]) => {
+    for (const item of menuList) {
+      //判断有无子节点
+      if (item.children) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        _recurseGetLeaf(item.children)
+      } else {
+        //将子节点的id全部push进数组里
+        leftKeys.push(item.id)
+      }
+    }
+  }
+  _recurseGetLeaf(menuList)
+  return leftKeys
+}
+
 export { firstMenu }

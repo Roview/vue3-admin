@@ -9,7 +9,7 @@
       :title="pageName === 'role' ? '角色管理' : '用户管理'"
     >
       <template #headerHandler>
-        <el-button v-if="isCreate" @click="addUser">新建用户</el-button>
+        <el-button v-if="isCreate" @click="handleAddUser">新建用户</el-button>
         <el-button icon="el-icon-refresh"></el-button>
       </template>
       <!--row的方法就把scope传递出来-->
@@ -30,7 +30,12 @@
       </template>
       <template #handle="scope">
         <div class="handle-btns">
-          <el-button size="mini" type="text" icon="el-icon-edit" v-if="isUpdate"
+          <el-button
+            size="mini"
+            type="text"
+            icon="el-icon-edit"
+            v-if="isUpdate"
+            @click="handleUpdateUser(scope.row)"
             >编辑
           </el-button>
           <el-button
@@ -80,7 +85,8 @@ export default defineComponent({
   components: {
     HyTable
   },
-  setup(props) {
+  emits: ['newBtnClick', 'editBtnClick'],
+  setup(props, { emit }) {
     const store = useStore()
     //获取操作的权限
     const isCreate = usePermission(props.pageName, 'create')
@@ -124,6 +130,14 @@ export default defineComponent({
         id: row.id
       })
     }
+    //添加新用户
+    const handleAddUser = () => {
+      emit('newBtnClick')
+    }
+    //编辑当前用户
+    const handleUpdateUser = (row: any) => {
+      emit('editBtnClick', row)
+    }
     //获取其他的动态插槽的名称
     const otherPropSlots = props.contentTableConfig?.propList.filter(
       (item: any) => {
@@ -143,9 +157,9 @@ export default defineComponent({
       isCreate,
       isUpdate,
       isDelete,
-      handleDeleteClick
-      // addUser,
-      // userCount
+      handleDeleteClick,
+      handleAddUser,
+      handleUpdateUser
     }
   }
 })

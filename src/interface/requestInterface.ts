@@ -47,6 +47,8 @@ export interface IFormItem {
   placeholder?: any
   options?: any[]
   otherOptions?: any //特殊的属性 可能是字符串或者数组
+  //布尔值控制显示隐藏
+  isHidden?: boolean
 }
 export interface IForm {
   formItem?: IFormItem[]

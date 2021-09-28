@@ -6,5 +6,5 @@ export function formatUtcString(
   utcString: string,
   format: string = DATE_TIME_FORMAT
 ) {
-  return dayjs.utc(utcString).format(format)
+  return dayjs.utc(utcString).utcOffset(8).format(format) //0时区转换成东八区
 }

@@ -1,6 +1,11 @@
 import { Module } from 'vuex'
 import { IRootState, ISystemState } from '../types'
-import { deletePageDataById, getPageListData } from '../../network/login'
+import {
+  deletePageDataById,
+  getPageListData,
+  createPageData,
+  updatePageData
+} from '../../network/login'
 const systemModule: Module<ISystemState, IRootState> = {
   namespaced: true, //命名空间
   state() {
@@ -132,6 +137,34 @@ const systemModule: Module<ISystemState, IRootState> = {
       //请求
       await deletePageDataById(pageUrl)
       //重新请求数据
+      dispatch('getPageListAction', {
+        pageName: pageName,
+        queryInfo: {
+          offset: 1,
+          size: 10
+        }
+      })
+    },
+    //新建用户
+    async createPageDataAction({ dispatch }, payLoad: any) {
+      const { pageName, newData } = payLoad
+      const pageUrl = `/${pageName}`
+      await createPageData(pageUrl, newData)
+      //重新请求下最新的数据
+      dispatch('getPageListAction', {
+        pageName: pageName,
+        queryInfo: {
+          offset: 1,
+          size: 10
+        }
+      })
+    },
+    //编辑用户
+    async updatePageDataAction({ dispatch }, payLoad: any) {
+      const { pageName, editData, id } = payLoad
+      const pageUrl = `/${pageName}/${id}`
+      await updatePageData(pageUrl, editData)
+      //重新请求下最新的数据
       dispatch('getPageListAction', {
         pageName: pageName,
         queryInfo: {
