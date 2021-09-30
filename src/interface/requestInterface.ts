@@ -34,6 +34,7 @@ export interface IDDataType<T = any> {
 export interface IRootWithModule {
   login: ILoginState
   systemModule: ISystemState
+  dashboard: IDashboardState
 }
 //交叉类型 两种类型都有useStore方法就可以使用2种方法
 export type IStoreType = IRootWithModule & ILoginState
@@ -65,4 +66,8 @@ export interface IDashboardState {
   categoryGoodsSale: any[] //商品销量
   categoryGoodsFavor: any[] //商品收藏
   addressGoodsSale: any[]
+}
+export interface IDataType {
+  name: string
+  value: any
 }
